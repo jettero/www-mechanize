@@ -1785,8 +1785,7 @@ sub click_button {
 
     # Carp::croak("No clickable input with name $name") if $name;
     # HTML::Form does this when there's nothing to click, so we should to?
-    # die() breaks a bunch of tests... warn() seems appropos though.
-    $self->warn("No clickable input found for specified button") unless $request;
+    $self->die("No clickable input found for specified button") unless $request;
 
     return $self->request( $request );
 }

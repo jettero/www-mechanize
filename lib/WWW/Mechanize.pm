@@ -1910,7 +1910,12 @@ sub submit_form {
 
     my $response;
     if ( $args{button} ) {
-        $response = $self->click( $args{button}, $args{x} || 0, $args{y} || 0 );
+        if( ref( $args{button} ) eq "HASH" ) {
+            $response = $self->click_button( %{ $args{button} }, map { ($_=>$args{$_}) } grep {defined $args{$_}} qw(x y) );
+        }
+        else {
+            $response = $self->click( $args{button}, $args{x} || 0, $args{y} || 0 );
+        }
     }
     else {
         $response = $self->submit();
